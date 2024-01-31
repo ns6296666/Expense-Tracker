@@ -8,10 +8,14 @@ import RecentExpense from "./screens/RecentExpense";
 import ManageExpense from "./screens/ManageExpense";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
+import IconButton from "./components/UI/IconButton";
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabScreens = () => {
+  const AddButtonHandler = () => {
+    console.log("pressed");
+  };
   return (
     <BottomTabs.Navigator
       screenOptions={{
@@ -19,6 +23,16 @@ const BottomTabScreens = () => {
         headerTintColor: "#fff",
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
+        headerRight: ({ tintColor }) => {
+          return (
+            <IconButton
+              icon="add"
+              size={24}
+              color={tintColor}
+              onPress={AddButtonHandler}
+            />
+          );
+        },
       }}
     >
       <BottomTabs.Screen
