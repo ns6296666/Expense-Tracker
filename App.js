@@ -64,7 +64,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: GlobalStyles.colors.primary500,
+          },
+          headerTintColor: "#fff",
+        }}
+      >
         <Stack.Screen
           name="ExpensesScreen"
           component={BottomTabScreens}
@@ -73,7 +80,10 @@ export default function App() {
         <Stack.Screen
           name="ManageExpense"
           component={ManageExpense}
-          options={{ headerBackTitle: "Back" }}
+          options={{
+            headerBackTitle: "Back",
+            presentation: "modal",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
