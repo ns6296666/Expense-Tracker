@@ -13,12 +13,9 @@ const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabScreens = () => {
-  const AddButtonHandler = () => {
-    console.log("pressed");
-  };
   return (
     <BottomTabs.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: "#fff",
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
@@ -29,11 +26,13 @@ const BottomTabScreens = () => {
               icon="add"
               size={24}
               color={tintColor}
-              onPress={AddButtonHandler}
+              onPress={() => {
+                navigation.navigate("ManageExpense");
+              }}
             />
           );
         },
-      }}
+      })}
     >
       <BottomTabs.Screen
         name="AllScreen"
@@ -71,7 +70,11 @@ export default function App() {
           component={BottomTabScreens}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="ManageExpense" component={ManageExpense} />
+        <Stack.Screen
+          name="ManageExpense"
+          component={ManageExpense}
+          options={{ headerBackTitle: "Back" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
