@@ -8,31 +8,31 @@ const DUMMY_EXPENSES = [
     id: "e1",
     description: "a pair of shoes",
     amount: 55.99,
-    date: new Date("5-1-2022"),
+    date: new Date("2022-5-1"),
   },
   {
     id: "e2",
     description: "a pair of trousers",
     amount: 50.99,
-    date: new Date("15-2-2021"),
+    date: new Date("2021-2-15"),
   },
   {
     id: "e3",
     description: "milk",
     amount: 2.99,
-    date: new Date("15-5-2021"),
+    date: new Date("2021-5-15"),
   },
   {
     id: "e4",
     description: "grocery",
     amount: 2.99,
-    date: new Date("20-5-2021"),
+    date: new Date("2021-5-20"),
   },
   {
     id: "e5",
     description: "party",
     amount: 20.99,
-    date: new Date("20-12-2021"),
+    date: new Date("2021-12-20"),
   },
 ];
 function ExpensesOutput({ expenses, expensesPeriod }) {
