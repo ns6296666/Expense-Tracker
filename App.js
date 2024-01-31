@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="ExpensesOver" component={BottomTabScreens} />
+        <Stack.Screen name="ExpensesScreen" component={BottomTabScreens} />
         <Stack.Screen name="ManageExpense" component={ManageExpense} />
       </Stack.Navigator>
     </NavigationContainer>
