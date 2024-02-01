@@ -1,9 +1,18 @@
 import React from "react";
 import { Text, View } from "react-native";
 import ExpensesOutput from "../components/expensesOutput/ExpensesOutput";
+import { useSelector } from "react-redux";
+import { getDateMinusDays } from "../components/expensesOutput/utils/Date";
 
 function RecentExpense() {
-  return <ExpensesOutput expensesPeriod="Last 7 Days" />;
+  const selector = useSelector((state) => state.Expenses.expenses);
+  const date = new Date();
+  const recentExpense = selector.filter(
+    (data) => data.date > getDateMinusDays(date, 7)
+  );
+  return (
+    <ExpensesOutput expensesPeriod="Last 7 Days" expenses={recentExpense} />
+  );
 }
 
 export default RecentExpense;

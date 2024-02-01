@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { GlobalStyles } from "../../constants/style";
+import { useSelector } from "react-redux";
 function ExpensesSummary({ periodName, expenses }) {
-  const expenseSum = expenses.reduce((sum, expense) => {
-    return sum + expense.amount;
-  }, 0);
+  const exp = useSelector((state) => state["Expenses"]);
+  useEffect(() => {
+    console.log("exp, should return array", exp["expenses"]);
+    const expenseSum = exp["expenses"].reduce((sum, expense) => {
+      return sum + expense.amount;
+    }, 0);
+
+    console.log("exp, post expenseSum", expenseSum);
+  }, [exp !== undefined]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.period}>{periodName}</Text>
-      <Text style={styles.sum}>$ {expenseSum.toFixed(2)}</Text>
+      {/* <Text style={styles.sum}>$ {expenseSum?.toFixed(2)}</Text> */}
     </View>
   );
 }

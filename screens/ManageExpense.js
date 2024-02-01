@@ -1,31 +1,37 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/style";
 import Button from "../components/UI/Button";
+import { useDispatch } from "react-redux";
+import { addExpense, deleteExpense, updateExpense } from "../store/expense";
 
 function ManageExpense({ route, navigation }) {
+  const dispatch = useDispatch();
   const id = route?.params?.id;
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: id ? "Edit Expense" : "Add Expense",
-    });
-  }, [navigation, id]);
 
-  const deleteExpense = () => {};
+  const deleteExpenses = () => {
+    dispatch(deleteExpense({ id: id }));
+    navigation.goBack();
+  };
 
   function cancelHandler() {
     navigation.goBack();
   }
 
-  function ConfirmHandler() {}
+  function ConfirmHandler({ data }) {
+    console.log("data", data);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.extraButtons}>
         <Button mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
         </Button>
-        <Button onPress={ConfirmHandler} style={styles.button}>
+        <Button
+          onPress={() => ConfirmHandler(id ? "Update" : "Add")}
+          style={styles.button}
+        >
           {id ? "Update" : "Add"}
         </Button>
       </View>
@@ -35,7 +41,7 @@ function ManageExpense({ route, navigation }) {
             icon="trash"
             size={36}
             color={GlobalStyles.colors.error500}
-            onPress={deleteExpense}
+            onPress={deleteExpenses}
           />
         </View>
       )}
