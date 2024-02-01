@@ -33,7 +33,7 @@ export const DUMMY_EXPENSES = [
   },
 ];
 const initialState = {
-  expenses: DUMMY_EXPENSES,
+  allExpenses: DUMMY_EXPENSES,
   addExpense: ({ description, amount, date }) => {},
   deleteExpense: (id) => {},
   updateExpense: (id, { description, amount, date }) => {},
@@ -45,24 +45,21 @@ const expenseSlice = createSlice({
     addExpense: (state, action) => {
       console.log("state in addexpense", state);
       const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id: id }, ...state];
+      const dateAsString = action.payload.date.toISOString();
+      state.allExpenses.push({ ...action.payload, id: id, date: dateAsString });
     },
 
     deleteExpense: (state, action) => {
-      console.log("in redux delete", action, "state", state.expenses);
-      const filteredExpense = state.expenses.filter(
+      state.allExpenses = state.allExpenses.filter(
         (expense) => expense.id !== action.payload.id
       );
-      return filteredExpense;
     },
     updateExpense: () => {
-      const index = state.expenses.findIndex(
-        (expense) => expense.id !== action.payload
+      const index = state.allExpenses.findIndex(
+        (expense) => expense.id === action.payload.id
       );
-      const newArray = [...state.expenses];
-
-      newArray[index].completed = true;
-      return newArray;
+      const dateAsString = action.payload.data.date.toISOString();
+      state.allExpenses[index] = { ...action.payload.data, date: dateAsString };
     },
   },
 });

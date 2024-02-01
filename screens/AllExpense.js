@@ -4,9 +4,12 @@ import ExpensesOutput from "../components/expensesOutput/ExpensesOutput";
 import { useSelector } from "react-redux";
 
 export default function AllExpense({ navigation }) {
-  const selector = useSelector((state) => state.Expenses);
+  const selector = useSelector((state) => state.expenses);
+  console.log("AllExpense");
   const PressHandler = () => {
     navigation.navigate("ManageExpense");
   };
-  return <ExpensesOutput expensesPeriod="Total" expenses={selector.expenses} />;
+  return (
+    <ExpensesOutput expensesPeriod="Total" expenses={selector.allExpenses} />
+  );
 }

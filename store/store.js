@@ -2,5 +2,5 @@ import { configureStore } from "@reduxjs/toolkit";
 import expenseReducer from "../store/expense";
 
 export const store = configureStore({
-  reducer: { Expenses: expenseReducer },
+  reducer: { expenses: expenseReducer },
 });

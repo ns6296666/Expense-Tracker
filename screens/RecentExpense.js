@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { getDateMinusDays } from "../components/expensesOutput/utils/Date";
 
 function RecentExpense() {
-  const selector = useSelector((state) => state.Expenses.expenses);
+  const selector = useSelector((state) => state.expenses.allExpenses);
   const date = new Date();
   const recentExpense = selector.filter(
     (data) => data.date > getDateMinusDays(date, 7)
