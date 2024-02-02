@@ -19,8 +19,26 @@ function ManageExpense({ route, navigation }) {
     navigation.goBack();
   }
 
-  function ConfirmHandler({ data }) {
-    console.log("data", data);
+  function ConfirmHandler() {
+    if (id) {
+      dispatch(
+        updateExpense({
+          description: "test successfully",
+          amount: 29.99,
+          date: new Date(24 - 12 - 11),
+          id: id,
+        })
+      );
+    } else {
+      dispatch(
+        addExpense({
+          description: "test",
+          amount: 19.99,
+          date: new Date(24 - 1 - 1),
+        })
+      );
+    }
+    navigation.goBack();
   }
   return (
     <View style={styles.container}>
@@ -28,10 +46,7 @@ function ManageExpense({ route, navigation }) {
         <Button mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
         </Button>
-        <Button
-          onPress={() => ConfirmHandler(id ? "Update" : "Add")}
-          style={styles.button}
-        >
+        <Button onPress={ConfirmHandler} style={styles.button}>
           {id ? "Update" : "Add"}
         </Button>
       </View>

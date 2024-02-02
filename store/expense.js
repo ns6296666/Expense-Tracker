@@ -34,9 +34,9 @@ export const DUMMY_EXPENSES = [
 ];
 const initialState = {
   allExpenses: DUMMY_EXPENSES,
-  addExpense: ({ description, amount, date }) => {},
-  deleteExpense: (id) => {},
-  updateExpense: (id, { description, amount, date }) => {},
+  addExpense: () => {},
+  deleteExpense: () => {},
+  updateExpense: () => {},
 };
 const expenseSlice = createSlice({
   name: "expense",
@@ -45,8 +45,7 @@ const expenseSlice = createSlice({
     addExpense: (state, action) => {
       console.log("state in addexpense", state);
       const id = new Date().toString() + Math.random().toString();
-      const dateAsString = action.payload.date.toISOString();
-      state.allExpenses.push({ ...action.payload, id: id, date: dateAsString });
+      state.allExpenses.push({ ...action.payload, id: id });
     },
 
     deleteExpense: (state, action) => {
@@ -54,12 +53,12 @@ const expenseSlice = createSlice({
         (expense) => expense.id !== action.payload.id
       );
     },
-    updateExpense: () => {
+    updateExpense: (state, action) => {
       const index = state.allExpenses.findIndex(
         (expense) => expense.id === action.payload.id
       );
-      const dateAsString = action.payload.data.date.toISOString();
-      state.allExpenses[index] = { ...action.payload.data, date: dateAsString };
+      console.log("===========", action.payload);
+      state.allExpenses[index] = { ...action.payload };
     },
   },
 });
