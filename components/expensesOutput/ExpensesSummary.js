@@ -4,7 +4,6 @@ import { GlobalStyles } from "../../constants/style";
 import { useSelector } from "react-redux";
 function ExpensesSummary({ periodName }) {
   const exp = useSelector((state) => state.expenses.allExpenses);
-  console.log("exp, should return array", exp);
   const expenseSum = exp.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);

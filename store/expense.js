@@ -43,7 +43,6 @@ const expenseSlice = createSlice({
   initialState: initialState,
   reducers: {
     addExpense: (state, action) => {
-      console.log("state in addexpense", state);
       const id = new Date().toString() + Math.random().toString();
       state.allExpenses.push({ ...action.payload, id: id });
     },
@@ -57,7 +56,6 @@ const expenseSlice = createSlice({
       const index = state.allExpenses.findIndex(
         (expense) => expense.id === action.payload.id
       );
-      console.log("===========", action.payload);
       state.allExpenses[index] = { ...action.payload };
     },
   },

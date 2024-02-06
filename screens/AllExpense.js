@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function AllExpense({ navigation }) {
   const selector = useSelector((state) => state.expenses);
-  console.log("AllExpense");
   const PressHandler = () => {
     navigation.navigate("ManageExpense");
   };
