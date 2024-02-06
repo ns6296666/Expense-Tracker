@@ -43,7 +43,7 @@ function ManageExpense({ route, navigation }) {
   }
   return (
     <View style={styles.container}>
-      <ExpenseForm />
+      <ExpenseForm id={id} />
       <View style={styles.extraButtons}>
         <Button mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
