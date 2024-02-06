@@ -4,6 +4,7 @@ import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/style";
 import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { addExpense, deleteExpense, updateExpense } from "../store/expense";
 
 function ManageExpense({ route, navigation }) {
@@ -42,6 +43,7 @@ function ManageExpense({ route, navigation }) {
   }
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.extraButtons}>
         <Button mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
@@ -60,7 +62,6 @@ function ManageExpense({ route, navigation }) {
           />
         </View>
       )}
-      <Text>{id ? "Edit Manage Expense" : "Add Manage Expense"}</Text>
     </View>
   );
 }
