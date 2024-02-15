@@ -11,47 +11,32 @@ function ManageExpense({ route, navigation }) {
   const dispatch = useDispatch();
   const id = route?.params?.id;
 
+  function cancelHandler() {
+    navigation.goBack();
+  }
+
   const deleteExpenses = () => {
     dispatch(deleteExpense({ id: id }));
     navigation.goBack();
   };
 
-  function cancelHandler() {
-    navigation.goBack();
-  }
-
-  function ConfirmHandler() {
+  function ConfirmHandler(expenseData) {
     if (id) {
-      dispatch(
-        updateExpense({
-          description: "test successfully",
-          amount: 29.99,
-          date: new Date(24 - 12 - 11),
-          id: id,
-        })
-      );
+      dispatch(updateExpense(expenseData));
     } else {
-      dispatch(
-        addExpense({
-          description: "test",
-          amount: 19.99,
-          date: new Date(24 - 1 - 1),
-        })
-      );
+      dispatch(addExpense(expenseData));
     }
     navigation.goBack();
   }
+
   return (
     <View style={styles.container}>
-      <ExpenseForm id={id} />
-      <View style={styles.extraButtons}>
-        <Button mode="flat" onPress={cancelHandler} style={styles.button}>
-          Cancel
-        </Button>
-        <Button onPress={ConfirmHandler} style={styles.button}>
-          {id ? "Update" : "Add"}
-        </Button>
-      </View>
+      <ExpenseForm
+        id={id}
+        onCancel={cancelHandler}
+        onConfirm={ConfirmHandler}
+      />
+
       {id && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -74,15 +59,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: GlobalStyles.colors.primary800,
   },
-  extraButtons: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  button: {
-    minWidth: 150,
-    marginHorizontal: 8,
-  },
+
   deleteContainer: {
     marginTop: 16,
     paddingTop: 8,
