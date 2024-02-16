@@ -4,7 +4,7 @@ import Input from "./Input";
 import { GlobalStyles } from "../../constants/style";
 import Button from "../UI/Button";
 import { useSelector } from "react-redux";
-import { dateFormate } from "../expensesOutput/utils/Date";
+import { dateFormate } from "../utils/Date";
 
 function ExpenseForm({ id, onCancel, onConfirm }) {
   const expense = useSelector((state) => state.expenses.allExpenses);

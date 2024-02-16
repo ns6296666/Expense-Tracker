@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ExpensesOutput from "../components/expensesOutput/ExpensesOutput";
 import { useDispatch, useSelector } from "react-redux";
-import { getDateMinusDays } from "../components/expensesOutput/utils/Date";
+import { getDateMinusDays } from "../components/utils/Date";
 import { GlobalStyles } from "../constants/style";
-import { fetchExpense } from "../components/expensesOutput/utils/http";
+import { fetchExpense } from "../components/utils/http";
 import { setExpense } from "../store/expense";
 
 function RecentExpense() {
@@ -14,7 +14,7 @@ function RecentExpense() {
 
   const date = new Date();
   const recentExpense = Expense.filter(
-    (data) => data.date > getDateMinusDays(date, 7)
+    (data) => new Date(data.date) > getDateMinusDays(date, 7)
   );
 
   useEffect(() => {

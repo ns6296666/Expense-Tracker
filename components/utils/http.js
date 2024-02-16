@@ -2,7 +2,9 @@ import axios from "axios";
 
 const URL = "https://expense-tracker-1d7d0-default-rtdb.firebaseio.com";
 export function storeExpense(expenseData) {
-  axios.post(`${URL}/expenses.json`, expenseData);
+  const response = axios.post(`${URL}/expenses.json`, expenseData);
+  const id = response.data.name;
+  return id;
 }
 
 export async function fetchExpense() {
@@ -23,4 +25,11 @@ export async function fetchExpense() {
     console.error("Error fetching expenses:", err);
     throw err;
   }
+}
+
+export function updateExpenses(id, expenseData) {
+  return axios.put(`${URL}/expenses/${id}.json`, expenseData);
+}
+export function deletedExpenses(id) {
+  return axios.delete(`${URL}/expenses/${id}.json`);
 }

@@ -6,7 +6,11 @@ import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { addExpense, deleteExpense, updateExpense } from "../store/expense";
-import { storeExpense } from "../components/expensesOutput/utils/http";
+import {
+  storeExpense,
+  updateExpenses,
+  deletedExpenses,
+} from "../components/utils/http";
 
 function ManageExpense({ route, navigation }) {
   const dispatch = useDispatch();
@@ -18,15 +22,17 @@ function ManageExpense({ route, navigation }) {
 
   const deleteExpenses = () => {
     dispatch(deleteExpense({ id: id }));
+    deletedExpenses(id);
     navigation.goBack();
   };
 
-  function ConfirmHandler(expenseData) {
+  async function ConfirmHandler(expenseData) {
     if (id) {
       dispatch(updateExpense(expenseData));
+      await updateExpenses(id, expenseData);
     } else {
-      storeExpense(expenseData);
-      dispatch(addExpense(expenseData));
+      const id = await storeExpense(expenseData);
+      dispatch(addExpense({ ...expenseData, id: id }));
     }
     navigation.goBack();
   }

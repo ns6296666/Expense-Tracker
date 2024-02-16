@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allExpenses: [],
+  recentExpense: [],
 };
 const expenseSlice = createSlice({
   name: "expense",
@@ -11,7 +12,7 @@ const expenseSlice = createSlice({
       const id = new Date().toString() + Math.random().toString();
       console.log("in add", action.payload);
       action.payload.date = action.payload.date.toISOString();
-      state.allExpenses.push({ ...action.payload, id: id });
+      state.allExpenses.push({ ...action.payload });
     },
 
     setExpense: (state, action) => {

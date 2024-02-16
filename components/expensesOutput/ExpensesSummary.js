@@ -1,10 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { GlobalStyles } from "../../constants/style";
-import { useSelector } from "react-redux";
-function ExpensesSummary({ periodName }) {
-  const exp = useSelector((state) => state.expenses.allExpenses);
-  const expenseSum = exp.reduce((sum, expense) => {
+function ExpensesSummary({ periodName, expenses }) {
+  const expenseSum = expenses.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);
 
