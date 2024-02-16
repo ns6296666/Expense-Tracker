@@ -4,12 +4,8 @@ import ExpensesOutput from "../components/expensesOutput/ExpensesOutput";
 import { useDispatch, useSelector } from "react-redux";
 import { getDateMinusDays } from "../components/utils/Date";
 import { GlobalStyles } from "../constants/style";
-import { fetchExpense } from "../components/utils/http";
-import { setExpense } from "../store/expense";
 
 function RecentExpense() {
-  const dispatch = useDispatch();
-
   const Expense = useSelector((state) => state.expenses.allExpenses);
 
   const date = new Date();
@@ -17,17 +13,6 @@ function RecentExpense() {
     (data) => new Date(data.date) > getDateMinusDays(date, 7)
   );
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedExpenses = await fetchExpense();
-        dispatch(setExpense(fetchedExpenses));
-      } catch (err) {
-        throw err;
-      }
-    }
-    getData();
-  }, [dispatch, setExpense]);
   return recentExpense.length > 0 ? (
     <ExpensesOutput expensesPeriod="Last 7 Days" expenses={recentExpense} />
   ) : (
