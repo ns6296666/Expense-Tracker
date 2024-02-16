@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import FlatButton from "../UI/FlatButton";
 import AuthForm from "./AuthForm";
 import { Colors } from "../../constants/LoginStyle";
+import { loginUser } from "../utils/Auth";
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
@@ -22,7 +23,6 @@ function AuthContent({ isLogin, onAuthenticate }) {
       navigation.navigate("Login");
     }
   }
-
   function submitHandler(credentials) {
     let { email, confirmEmail, password, confirmPassword } = credentials;
 
