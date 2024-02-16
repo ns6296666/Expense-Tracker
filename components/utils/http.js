@@ -27,8 +27,14 @@ export async function fetchExpense() {
   }
 }
 
-export function updateExpenses(id, expenseData) {
-  return axios.put(`${URL}/expenses/${id}.json`, expenseData);
+export async function updateExpenses(id, expenseData) {
+  try {
+    const response = await axios.put(`${URL}/expenses/${id}.json`, expenseData);
+    return response;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 }
 export function deletedExpenses(id) {
   return axios.delete(`${URL}/expenses/${id}.json`);
