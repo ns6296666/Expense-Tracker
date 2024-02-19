@@ -10,16 +10,17 @@ async function authenticate(type, email, password) {
       password: password,
       returnSecureToken: true,
     });
-    return response;
+    const token = response.data?.idToken;
+    return token;
   } catch (err) {
     throw err;
   }
 }
 
-export async function createUser(email, password) {
-  await authenticate("signUp", email, password);
+export function createUser(email, password) {
+  return authenticate("signUp", email, password);
 }
 
-export async function loginUser(email, password) {
-  await authenticate("signInWithPassword", email, password);
+export function loginUser(email, password) {
+  return authenticate("signInWithPassword", email, password);
 }

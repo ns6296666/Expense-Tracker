@@ -1,9 +1,8 @@
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpense from "../screens/AllExpense";
-import { GlobalStyles } from "../constants/LoginStyle";
+import { GlobalStyles } from "../constants/style";
 import RecentExpense from "./RecentExpense";
 import ManageExpense from "./ManageExpense";
 import { StatusBar } from "expo-status-bar";
@@ -19,10 +18,10 @@ const BottomTabScreens = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
-        headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+        headerStyle: { backgroundColor: GlobalStyles?.colors?.primary500 },
         headerTintColor: "#fff",
-        tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
-        tabBarActiveTintColor: GlobalStyles.colors.accent500,
+        tabBarStyle: { backgroundColor: GlobalStyles?.colors?.primary500 },
+        tabBarActiveTintColor: GlobalStyles?.colors?.accent500,
         headerRight: ({ tintColor }) => {
           return (
             <IconButton
@@ -63,35 +62,35 @@ const BottomTabScreens = () => {
   );
 };
 
-export default function App() {
+export default function WelcomeScreen() {
   return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <StatusBar style="light" />
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: GlobalStyles.colors.primary500,
-            },
-            headerTintColor: "#fff",
-          }}
-        >
-          <Stack.Screen
-            name="ExpensesScreen"
-            component={BottomTabScreens}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ManageExpense"
-            component={ManageExpense}
-            options={{
-              headerBackTitle: "Back",
-              presentation: "modal",
-            }}
-          />
-        </Stack.Navigator>
-      </Provider>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Provider store={store}>
+    //     <StatusBar style="light" />
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: GlobalStyles?.colors?.primary500,
+        },
+        headerTintColor: "#fff",
+      }}
+    >
+      <Stack.Screen
+        name="ExpensesScreen"
+        component={BottomTabScreens}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManageExpense"
+        component={ManageExpense}
+        options={{
+          headerBackTitle: "Back",
+          presentation: "modal",
+        }}
+      />
+    </Stack.Navigator>
+    //   </Provider>
+    // </NavigationContainer>
   );
 }
 

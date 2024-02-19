@@ -6,8 +6,12 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { Colors } from "./constants/LoginStyle";
+import { Provider, useSelector } from "react-redux";
+import { store } from "./store/store";
+import { UseSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
+
 function AuthStack() {
   return (
     <Stack.Navigator
@@ -31,25 +35,32 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
 
 function Navigation() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log("isAuthenticated in app", isAuthenticated);
   return (
     <NavigationContainer>
-      <AuthStack />
+      {!isAuthenticated && <AuthStack />}
+      {isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>
   );
 }
 
 export default function App() {
   return (
-    <>
+    <Provider store={store}>
       <StatusBar style="light" />
 
       <Navigation />
-    </>
+    </Provider>
   );
 }
