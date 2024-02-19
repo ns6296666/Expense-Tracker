@@ -5,16 +5,16 @@ import AllExpense from "../screens/AllExpense";
 import { GlobalStyles } from "../constants/style";
 import RecentExpense from "./RecentExpense";
 import ManageExpense from "./ManageExpense";
-import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import IconButton from "../components/UI/IconButton";
-import { store } from "../store/store";
-import { Provider } from "react-redux";
+import { logout } from "../store/auth";
+import { useDispatch } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabScreens = () => {
+  const dispatch = useDispatch();
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -24,14 +24,25 @@ const BottomTabScreens = () => {
         tabBarActiveTintColor: GlobalStyles?.colors?.accent500,
         headerRight: ({ tintColor }) => {
           return (
-            <IconButton
-              icon="add"
-              size={24}
-              color={tintColor}
-              onPress={() => {
-                navigation.navigate("ManageExpense");
-              }}
-            />
+            <View style={styles.buttons}>
+              <IconButton
+                icon="add"
+                size={24}
+                color={tintColor}
+                onPress={() => {
+                  navigation.navigate("ManageExpense");
+                }}
+              />
+              <IconButton
+                icon="log-out"
+                size={24}
+                color={tintColor}
+                onPress={() => {
+                  dispatch(logout());
+                  // navigation.navigate("ManageExpense");
+                }}
+              />
+            </View>
           );
         },
       })}
@@ -63,6 +74,7 @@ const BottomTabScreens = () => {
 };
 
 export default function WelcomeScreen() {
+  // const dispatch = useDispatch();
   return (
     // <NavigationContainer>
     //   <Provider store={store}>
@@ -100,5 +112,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
   },
 });
