@@ -7,9 +7,9 @@ export function storeExpense(expenseData) {
   return id;
 }
 
-export async function fetchExpense() {
+export async function fetchExpense(token) {
   try {
-    const response = await axios.get(`${URL}/expenses.json`);
+    const response = await axios.get(`${URL}/expenses.json?auth=${token}`);
     const expenses = [];
     for (const key in response.data) {
       const expObj = {

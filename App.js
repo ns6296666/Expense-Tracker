@@ -1,15 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-
+import { useEffect, useState } from "react";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { Colors } from "./constants/LoginStyle";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store";
-import { UseSelector } from "react-redux";
-
+import { authenticate } from "./store/auth";
+import * as Progress from "react-native-progress";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -54,13 +55,37 @@ function Navigation() {
     </NavigationContainer>
   );
 }
+const Root = () => {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const gettingToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem("storedToken");
+        console.log("token in app: ", token);
+        if (token) {
+          dispatch(authenticate(token));
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    gettingToken();
+  }, []);
 
+  if (loading) {
+    return <Progress.CircleSnail color={["red", "green", "blue"]} />;
+  }
+
+  return <Navigation />;
+};
 export default function App() {
   return (
     <Provider store={store}>
       <StatusBar style="light" />
 
-      <Navigation />
+      <Root />
     </Provider>
   );
 }

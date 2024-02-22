@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import IconButton from "../components/UI/IconButton";
 import { logout } from "../store/auth";
 import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -39,7 +40,7 @@ const BottomTabScreens = () => {
                 color={tintColor}
                 onPress={() => {
                   dispatch(logout());
-                  // navigation.navigate("ManageExpense");
+                  AsyncStorage.removeItem("storedToken");
                 }}
               />
             </View>
@@ -74,11 +75,7 @@ const BottomTabScreens = () => {
 };
 
 export default function WelcomeScreen() {
-  // const dispatch = useDispatch();
   return (
-    // <NavigationContainer>
-    //   <Provider store={store}>
-    //     <StatusBar style="light" />
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
