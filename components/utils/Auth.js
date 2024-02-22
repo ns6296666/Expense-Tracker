@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const SECRETE_API_KEY = "AIzaSyCFWgJwlh3mPtUy1r0_qhKra9yOHU-3u00";
-
 async function authenticate(type, email, password) {
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${type}?key=${SECRETE_API_KEY}
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${type}?key=${process.env.SECRETE_API_KEY}
   `;
   try {
     const response = await axios.post(url, {

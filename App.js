@@ -81,6 +81,7 @@ const Root = () => {
   return <Navigation />;
 };
 export default function App() {
+  console.log("process.env", process.env);
   return (
     <Provider store={store}>
       <StatusBar style="light" />
