@@ -15,7 +15,6 @@ function LoginScreen() {
     setIsAuthenticated(true);
     try {
       const token = await loginUser(email, password);
-
       dispatch(authenticate(token));
       AsyncStorage.setItem("storedToken", token);
     } catch (error) {

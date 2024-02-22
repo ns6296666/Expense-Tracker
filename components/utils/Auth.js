@@ -1,5 +1,4 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SECRETE_API_KEY = "AIzaSyCFWgJwlh3mPtUy1r0_qhKra9yOHU-3u00";
 
